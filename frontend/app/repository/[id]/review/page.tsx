@@ -28,8 +28,8 @@ type Finding = {
 };
 
 export default function CodeReviewPage() {
-  const params = useParams();
-  const repoId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const params = useParams<{ id: string }>();
+  const repoId = params.id;
 
   const [diff, setDiff] = useState("");
   const [result, setResult] = useState<any>(null);

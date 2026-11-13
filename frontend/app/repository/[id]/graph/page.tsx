@@ -30,6 +30,7 @@ import {
 import Sidebar from "@/components/Sidebar";
 import { getGraph } from "@/lib/api";
 
+
 type GraphNodeData = {
   label: string;
   type: string;
@@ -180,8 +181,8 @@ function normalizeGraph(raw: any): { nodes: Node<GraphNodeData>[]; edges: Edge[]
 }
 
 export default function DependencyGraphPage() {
-  const params = useParams();
-  const repoId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const params = useParams<{ id: string }>();
+  const repoId = params.id;
 
   const [nodes, setNodes] = useState<Node<GraphNodeData>[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);

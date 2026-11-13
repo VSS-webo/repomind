@@ -35,8 +35,8 @@ type ImpactResult = {
 };
 
 export default function ImpactAnalysisPage() {
-  const params = useParams();
-  const repoId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const params = useParams<{ id: string }>();
+  const repoId = params.id;
 
   const [entities, setEntities] = useState<Entity[]>([]);
   const [selectedId, setSelectedId] = useState("");
