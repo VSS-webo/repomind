@@ -179,7 +179,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 VECTOR_DIR = BASE_DIR / "vector_db"
 
 # Retrieval configuration
-EMBEDDING_MODEL = "BAAI/bge-m3"
+EMBEDDING_MODEL = "BAAI/bge-m3"  #this is 1024 dimensions
 
 CHUNK_LINES = 80
 CHUNK_OVERLAP = 15

@@ -193,28 +193,71 @@ function DependencyGraphPageContent() {
     null
   );
 
-  async function loadGraph() {
-    try {
-      setLoading(true);
-      setError("");
+//   async function loadGraph() {
+//     try {
+//       setLoading(true);
+//       setError("");
 
-      const response = await getGraph(repoId);
-      const graph = normalizeGraph(response);
+//       const response = await getGraph(repoId);
+//       const graph = normalizeGraph(response);
 
-      setNodes(graph.nodes);
-      setEdges(graph.edges);
-      setSelectedNode(null);
-    } catch (err: any) {
-      console.error("Graph loading error:", err);
-      setError(
-        err.response?.data?.detail ||
-          err.message ||
-          "Failed to load dependency graph"
-      );
-    } finally {
-      setLoading(false);
+//       setNodes(graph.nodes);
+//       setEdges(graph.edges);
+//       setSelectedNode(null);
+//     } catch (err: any) {
+//       console.error("Graph loading error:", err);
+//       setError(
+//         err.response?.data?.detail ||
+//           err.message ||
+//           "Failed to load dependency graph"
+//       );
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+
+
+async function loadGraph() {
+  try {
+    setLoading(true);
+    setError("");
+
+    let response: any;
+
+    // DEMO MODE: Load pre-indexed Chronix data
+    if (repoId === "demo") {
+      const demoResponse = await fetch("/demo/chronix/graph.json");
+
+      if (!demoResponse.ok) {
+        throw new Error("Failed to load Chronix demo graph");
+      }
+
+      response = await demoResponse.json();
+    } else {
+      // LIVE MODE: Load from FastAPI
+      response = await getGraph(repoId);
     }
+
+    const graph = normalizeGraph(response);
+
+    setNodes(graph.nodes);
+    setEdges(graph.edges);
+    setSelectedNode(null);
+
+  } catch (err: any) {
+    console.error("Graph loading error:", err);
+
+    setError(
+      err.response?.data?.detail ||
+        err.message ||
+        "Failed to load dependency graph"
+    );
+
+  } finally {
+    setLoading(false);
   }
+}
+
 
   useEffect(() => {
     if (repoId) loadGraph();
@@ -275,7 +318,12 @@ function DependencyGraphPageContent() {
               Explore relationships between repository components
             </p>
           </div>
-
+          {repoId === "demo" && (
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-400">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                Pre-indexed Demo · Chronix
+            </div>
+            )}
           <button
             onClick={loadGraph}
             disabled={loading}

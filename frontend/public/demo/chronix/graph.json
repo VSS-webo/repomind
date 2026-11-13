@@ -1,0 +1,1220 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/test_dataset_hash_service.py",
+      "type": "file",
+      "name": "backend/test_dataset_hash_service.py",
+      "file": "backend/test_dataset_hash_service.py"
+    },
+    {
+      "id": "file:backend/test_storage_minio.py",
+      "type": "file",
+      "name": "backend/test_storage_minio.py",
+      "file": "backend/test_storage_minio.py"
+    },
+    {
+      "id": "file:backend/alembic/env.py",
+      "type": "file",
+      "name": "backend/alembic/env.py",
+      "file": "backend/alembic/env.py"
+    },
+    {
+      "id": "backend/alembic/env.py::run_migrations_offline::33",
+      "name": "run_migrations_offline",
+      "type": "function",
+      "file": "backend/alembic/env.py",
+      "line": 33,
+      "end_line": 54,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/env.py::run_migrations_online::57",
+      "name": "run_migrations_online",
+      "type": "function",
+      "file": "backend/alembic/env.py",
+      "line": 57,
+      "end_line": 76,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py",
+      "type": "file",
+      "name": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py",
+      "file": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py"
+    },
+    {
+      "id": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py::upgrade::21",
+      "name": "upgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py",
+      "line": 21,
+      "end_line": 37,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py::downgrade::40",
+      "name": "downgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py",
+      "line": 40,
+      "end_line": 50,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py",
+      "type": "file",
+      "name": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py",
+      "file": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py"
+    },
+    {
+      "id": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py::upgrade::21",
+      "name": "upgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py",
+      "line": 21,
+      "end_line": 38,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py::downgrade::42",
+      "name": "downgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py",
+      "line": 42,
+      "end_line": 47,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/alembic/versions/30590d99dccd_add_dataset_metadata.py",
+      "type": "file",
+      "name": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py",
+      "file": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py"
+    },
+    {
+      "id": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py::upgrade::21",
+      "name": "upgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py",
+      "line": 21,
+      "end_line": 29,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py::downgrade::33",
+      "name": "downgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py",
+      "line": 33,
+      "end_line": 41,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py",
+      "type": "file",
+      "name": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py",
+      "file": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py"
+    },
+    {
+      "id": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py::upgrade::21",
+      "name": "upgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py",
+      "line": 21,
+      "end_line": 26,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py::downgrade::29",
+      "name": "downgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py",
+      "line": 29,
+      "end_line": 49,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py",
+      "type": "file",
+      "name": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py",
+      "file": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py"
+    },
+    {
+      "id": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py::upgrade::21",
+      "name": "upgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py",
+      "line": 21,
+      "end_line": 24,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py::downgrade::28",
+      "name": "downgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py",
+      "line": 28,
+      "end_line": 31,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+      "type": "file",
+      "name": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+      "file": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py"
+    },
+    {
+      "id": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py::upgrade::21",
+      "name": "upgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+      "line": 21,
+      "end_line": 39,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py::downgrade::43",
+      "name": "downgrade",
+      "type": "function",
+      "file": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+      "line": 43,
+      "end_line": 49,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/main.py",
+      "type": "file",
+      "name": "backend/app/main.py",
+      "file": "backend/app/main.py"
+    },
+    {
+      "id": "backend/app/main.py::health_check::20",
+      "name": "health_check",
+      "type": "function",
+      "file": "backend/app/main.py",
+      "line": 20,
+      "end_line": 25,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [
+        "get"
+      ],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/api/routes/branches.py",
+      "type": "file",
+      "name": "backend/app/api/routes/branches.py",
+      "file": "backend/app/api/routes/branches.py"
+    },
+    {
+      "id": "file:backend/app/api/routes/commits.py",
+      "type": "file",
+      "name": "backend/app/api/routes/commits.py",
+      "file": "backend/app/api/routes/commits.py"
+    },
+    {
+      "id": "file:backend/app/api/routes/datasets.py",
+      "type": "file",
+      "name": "backend/app/api/routes/datasets.py",
+      "file": "backend/app/api/routes/datasets.py"
+    },
+    {
+      "id": "backend/app/api/routes/datasets.py::upload_dataset::89",
+      "name": "upload_dataset",
+      "type": "function",
+      "file": "backend/app/api/routes/datasets.py",
+      "line": 89,
+      "end_line": 151,
+      "parent": null,
+      "complexity": 4,
+      "decorators": [
+        "post"
+      ],
+      "parameters": [
+        "repository_id",
+        "file",
+        "db"
+      ],
+      "is_async": true
+    },
+    {
+      "id": "backend/app/api/routes/datasets.py::get_dataset_version_history::157",
+      "name": "get_dataset_version_history",
+      "type": "function",
+      "file": "backend/app/api/routes/datasets.py",
+      "line": 157,
+      "end_line": 187,
+      "parent": null,
+      "complexity": 3,
+      "decorators": [
+        "get"
+      ],
+      "parameters": [
+        "repository_id",
+        "dataset_id",
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/api/routes/datasets.py::get_specific_dataset_version::193",
+      "name": "get_specific_dataset_version",
+      "type": "function",
+      "file": "backend/app/api/routes/datasets.py",
+      "line": 193,
+      "end_line": 220,
+      "parent": null,
+      "complexity": 3,
+      "decorators": [
+        "get"
+      ],
+      "parameters": [
+        "repository_id",
+        "dataset_id",
+        "version_number",
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/api/routes/datasets.py::download_dataset_version::225",
+      "name": "download_dataset_version",
+      "type": "function",
+      "file": "backend/app/api/routes/datasets.py",
+      "line": 225,
+      "end_line": 270,
+      "parent": null,
+      "complexity": 4,
+      "decorators": [
+        "get"
+      ],
+      "parameters": [
+        "repository_id",
+        "dataset_id",
+        "version_number",
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/api/routes/datasets.py::checkout_dataset::275",
+      "name": "checkout_dataset",
+      "type": "function",
+      "file": "backend/app/api/routes/datasets.py",
+      "line": 275,
+      "end_line": 308,
+      "parent": null,
+      "complexity": 3,
+      "decorators": [
+        "post"
+      ],
+      "parameters": [
+        "repository_id",
+        "dataset_id",
+        "version_number",
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/api/routes/diff.py",
+      "type": "file",
+      "name": "backend/app/api/routes/diff.py",
+      "file": "backend/app/api/routes/diff.py"
+    },
+    {
+      "id": "file:backend/app/api/routes/repositories.py",
+      "type": "file",
+      "name": "backend/app/api/routes/repositories.py",
+      "file": "backend/app/api/routes/repositories.py"
+    },
+    {
+      "id": "backend/app/api/routes/repositories.py::create_repository_endpoint::28",
+      "name": "create_repository_endpoint",
+      "type": "function",
+      "file": "backend/app/api/routes/repositories.py",
+      "line": 28,
+      "end_line": 32,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [
+        "post"
+      ],
+      "parameters": [
+        "repository_data",
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/api/routes/repositories.py::list_repositories::39",
+      "name": "list_repositories",
+      "type": "function",
+      "file": "backend/app/api/routes/repositories.py",
+      "line": 39,
+      "end_line": 42,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [
+        "get"
+      ],
+      "parameters": [
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/api/routes/repositories.py::get_repository_endpoint::49",
+      "name": "get_repository_endpoint",
+      "type": "function",
+      "file": "backend/app/api/routes/repositories.py",
+      "line": 49,
+      "end_line": 61,
+      "parent": null,
+      "complexity": 2,
+      "decorators": [
+        "get"
+      ],
+      "parameters": [
+        "repository_id",
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/api/routes/__init__.py",
+      "type": "file",
+      "name": "backend/app/api/routes/__init__.py",
+      "file": "backend/app/api/routes/__init__.py"
+    },
+    {
+      "id": "file:backend/app/core/config.py",
+      "type": "file",
+      "name": "backend/app/core/config.py",
+      "file": "backend/app/core/config.py"
+    },
+    {
+      "id": "backend/app/core/config.py::Settings::6",
+      "name": "Settings",
+      "type": "class",
+      "file": "backend/app/core/config.py",
+      "line": 6,
+      "end_line": 21,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "file:backend/app/core/database.py",
+      "type": "file",
+      "name": "backend/app/core/database.py",
+      "file": "backend/app/core/database.py"
+    },
+    {
+      "id": "backend/app/core/database.py::Base::22",
+      "name": "Base",
+      "type": "class",
+      "file": "backend/app/core/database.py",
+      "line": 22,
+      "end_line": 23,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "backend/app/core/database.py::get_db::26",
+      "name": "get_db",
+      "type": "function",
+      "file": "backend/app/core/database.py",
+      "line": 26,
+      "end_line": 32,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/core/security.py",
+      "type": "file",
+      "name": "backend/app/core/security.py",
+      "file": "backend/app/core/security.py"
+    },
+    {
+      "id": "file:backend/app/models/dataset.py",
+      "type": "file",
+      "name": "backend/app/models/dataset.py",
+      "file": "backend/app/models/dataset.py"
+    },
+    {
+      "id": "backend/app/models/dataset.py::Dataset::88",
+      "name": "Dataset",
+      "type": "class",
+      "file": "backend/app/models/dataset.py",
+      "line": 88,
+      "end_line": 132,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "file:backend/app/models/dataset_version.py",
+      "type": "file",
+      "name": "backend/app/models/dataset_version.py",
+      "file": "backend/app/models/dataset_version.py"
+    },
+    {
+      "id": "backend/app/models/dataset_version.py::DatasetVersion::11",
+      "name": "DatasetVersion",
+      "type": "class",
+      "file": "backend/app/models/dataset_version.py",
+      "line": 11,
+      "end_line": 63,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "file:backend/app/models/repository.py",
+      "type": "file",
+      "name": "backend/app/models/repository.py",
+      "file": "backend/app/models/repository.py"
+    },
+    {
+      "id": "backend/app/models/repository.py::Repository::11",
+      "name": "Repository",
+      "type": "class",
+      "file": "backend/app/models/repository.py",
+      "line": 11,
+      "end_line": 33,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "file:backend/app/models/__init__.py",
+      "type": "file",
+      "name": "backend/app/models/__init__.py",
+      "file": "backend/app/models/__init__.py"
+    },
+    {
+      "id": "file:backend/app/schemas/dataset.py",
+      "type": "file",
+      "name": "backend/app/schemas/dataset.py",
+      "file": "backend/app/schemas/dataset.py"
+    },
+    {
+      "id": "backend/app/schemas/dataset.py::DatasetResponse::8",
+      "name": "DatasetResponse",
+      "type": "class",
+      "file": "backend/app/schemas/dataset.py",
+      "line": 8,
+      "end_line": 19,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "backend/app/schemas/dataset.py::DatasetVersionResponse::21",
+      "name": "DatasetVersionResponse",
+      "type": "class",
+      "file": "backend/app/schemas/dataset.py",
+      "line": 21,
+      "end_line": 31,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "backend/app/schemas/dataset.py::DatasetVersionHistoryResponse::34",
+      "name": "DatasetVersionHistoryResponse",
+      "type": "class",
+      "file": "backend/app/schemas/dataset.py",
+      "line": 34,
+      "end_line": 37,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "file:backend/app/schemas/repository.py",
+      "type": "file",
+      "name": "backend/app/schemas/repository.py",
+      "file": "backend/app/schemas/repository.py"
+    },
+    {
+      "id": "backend/app/schemas/repository.py::RepositoryCreate::7",
+      "name": "RepositoryCreate",
+      "type": "class",
+      "file": "backend/app/schemas/repository.py",
+      "line": 7,
+      "end_line": 8,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "backend/app/schemas/repository.py::RepositoryResponse::11",
+      "name": "RepositoryResponse",
+      "type": "class",
+      "file": "backend/app/schemas/repository.py",
+      "line": 11,
+      "end_line": 16,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "file:backend/app/services/dataset_service.py",
+      "type": "file",
+      "name": "backend/app/services/dataset_service.py",
+      "file": "backend/app/services/dataset_service.py"
+    },
+    {
+      "id": "backend/app/services/dataset_service.py::calculate_sha256::102",
+      "name": "calculate_sha256",
+      "type": "function",
+      "file": "backend/app/services/dataset_service.py",
+      "line": 102,
+      "end_line": 105,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "data"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/dataset_service.py::get_dataset_metadata::108",
+      "name": "get_dataset_metadata",
+      "type": "function",
+      "file": "backend/app/services/dataset_service.py",
+      "line": 108,
+      "end_line": 120,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "data"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/dataset_service.py::create_dataset::123",
+      "name": "create_dataset",
+      "type": "function",
+      "file": "backend/app/services/dataset_service.py",
+      "line": 123,
+      "end_line": 231,
+      "parent": null,
+      "complexity": 5,
+      "decorators": [],
+      "parameters": [
+        "db",
+        "repository_id",
+        "filename",
+        "data"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/dataset_service.py::get_dataset_versions::233",
+      "name": "get_dataset_versions",
+      "type": "function",
+      "file": "backend/app/services/dataset_service.py",
+      "line": 233,
+      "end_line": 254,
+      "parent": null,
+      "complexity": 2,
+      "decorators": [],
+      "parameters": [
+        "db",
+        "dataset_id"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/dataset_service.py::get_dataset_version::265",
+      "name": "get_dataset_version",
+      "type": "function",
+      "file": "backend/app/services/dataset_service.py",
+      "line": 265,
+      "end_line": 288,
+      "parent": null,
+      "complexity": 3,
+      "decorators": [],
+      "parameters": [
+        "db",
+        "dataset_id",
+        "version_number"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/dataset_service.py::checkout_dataset_version::290",
+      "name": "checkout_dataset_version",
+      "type": "function",
+      "file": "backend/app/services/dataset_service.py",
+      "line": 290,
+      "end_line": 319,
+      "parent": null,
+      "complexity": 3,
+      "decorators": [],
+      "parameters": [
+        "db",
+        "dataset_id",
+        "version_number"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/services/repository_service.py",
+      "type": "file",
+      "name": "backend/app/services/repository_service.py",
+      "file": "backend/app/services/repository_service.py"
+    },
+    {
+      "id": "backend/app/services/repository_service.py::create_repository::9",
+      "name": "create_repository",
+      "type": "function",
+      "file": "backend/app/services/repository_service.py",
+      "line": 9,
+      "end_line": 22,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "db",
+        "repository_data"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/repository_service.py::get_repositories::25",
+      "name": "get_repositories",
+      "type": "function",
+      "file": "backend/app/services/repository_service.py",
+      "line": 25,
+      "end_line": 26,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "db"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/services/repository_service.py::get_repository::29",
+      "name": "get_repository",
+      "type": "function",
+      "file": "backend/app/services/repository_service.py",
+      "line": 29,
+      "end_line": 34,
+      "parent": null,
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "db",
+        "repository_id"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "file:backend/app/services/__init__.py",
+      "type": "file",
+      "name": "backend/app/services/__init__.py",
+      "file": "backend/app/services/__init__.py"
+    },
+    {
+      "id": "file:backend/app/storage/minio_storage.py",
+      "type": "file",
+      "name": "backend/app/storage/minio_storage.py",
+      "file": "backend/app/storage/minio_storage.py"
+    },
+    {
+      "id": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "name": "MinIOStorage",
+      "type": "class",
+      "file": "backend/app/storage/minio_storage.py",
+      "line": 11,
+      "end_line": 60,
+      "parent": null,
+      "decorators": []
+    },
+    {
+      "id": "backend/app/storage/minio_storage.py::__init__::12",
+      "name": "__init__",
+      "type": "method",
+      "file": "backend/app/storage/minio_storage.py",
+      "line": 12,
+      "end_line": 22,
+      "parent": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/storage/minio_storage.py::_ensure_bucket::24",
+      "name": "_ensure_bucket",
+      "type": "method",
+      "file": "backend/app/storage/minio_storage.py",
+      "line": 24,
+      "end_line": 26,
+      "parent": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "complexity": 2,
+      "decorators": [],
+      "parameters": [
+        "self"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/storage/minio_storage.py::object_exists::28",
+      "name": "object_exists",
+      "type": "method",
+      "file": "backend/app/storage/minio_storage.py",
+      "line": 28,
+      "end_line": 36,
+      "parent": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "complexity": 2,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "object_name"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/storage/minio_storage.py::upload_bytes::38",
+      "name": "upload_bytes",
+      "type": "method",
+      "file": "backend/app/storage/minio_storage.py",
+      "line": 38,
+      "end_line": 48,
+      "parent": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "object_name",
+        "data"
+      ],
+      "is_async": false
+    },
+    {
+      "id": "backend/app/storage/minio_storage.py::download_bytes::50",
+      "name": "download_bytes",
+      "type": "method",
+      "file": "backend/app/storage/minio_storage.py",
+      "line": 50,
+      "end_line": 60,
+      "parent": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "complexity": 1,
+      "decorators": [],
+      "parameters": [
+        "self",
+        "object_name"
+      ],
+      "is_async": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/alembic/env.py",
+      "target": "backend/alembic/env.py::run_migrations_offline::33",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/env.py",
+      "target": "backend/alembic/env.py::run_migrations_online::57",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py",
+      "target": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py::upgrade::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py",
+      "target": "backend/alembic/versions/07d84d6f6de4_add_current_version_to_datasets.py::downgrade::40",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py",
+      "target": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py::upgrade::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py",
+      "target": "backend/alembic/versions/0bc35ac2f9b0_add_dataset_versions.py::downgrade::42",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/30590d99dccd_add_dataset_metadata.py",
+      "target": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py::upgrade::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/30590d99dccd_add_dataset_metadata.py",
+      "target": "backend/alembic/versions/30590d99dccd_add_dataset_metadata.py::downgrade::33",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py",
+      "target": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py::upgrade::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py",
+      "target": "backend/alembic/versions/462a7c4a8389_remove_version_fields_from_datasets.py::downgrade::29",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py",
+      "target": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py::upgrade::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py",
+      "target": "backend/alembic/versions/9a5fd58ff858_add_dataset_versions.py::downgrade::28",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+      "target": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py::upgrade::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+      "target": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py::downgrade::43",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "backend/app/main.py::health_check::20",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/datasets.py",
+      "target": "backend/app/api/routes/datasets.py::upload_dataset::89",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/datasets.py",
+      "target": "backend/app/api/routes/datasets.py::get_dataset_version_history::157",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/datasets.py",
+      "target": "backend/app/api/routes/datasets.py::get_specific_dataset_version::193",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/datasets.py",
+      "target": "backend/app/api/routes/datasets.py::download_dataset_version::225",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/datasets.py",
+      "target": "backend/app/api/routes/datasets.py::checkout_dataset::275",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/api/routes/datasets.py::upload_dataset::89",
+      "target": "backend/app/services/dataset_service.py::create_dataset::123",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/datasets.py::get_dataset_version_history::157",
+      "target": "backend/app/services/dataset_service.py::get_dataset_versions::233",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/datasets.py::get_specific_dataset_version::193",
+      "target": "backend/app/services/dataset_service.py::get_dataset_version::265",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/datasets.py::download_dataset_version::225",
+      "target": "backend/app/services/dataset_service.py::get_dataset_version::265",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/datasets.py::download_dataset_version::225",
+      "target": "backend/app/storage/minio_storage.py::download_bytes::50",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/datasets.py::checkout_dataset::275",
+      "target": "backend/app/services/dataset_service.py::checkout_dataset_version::290",
+      "type": "calls"
+    },
+    {
+      "source": "file:backend/app/api/routes/repositories.py",
+      "target": "backend/app/api/routes/repositories.py::create_repository_endpoint::28",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/repositories.py",
+      "target": "backend/app/api/routes/repositories.py::list_repositories::39",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/api/routes/repositories.py",
+      "target": "backend/app/api/routes/repositories.py::get_repository_endpoint::49",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/api/routes/repositories.py::create_repository_endpoint::28",
+      "target": "backend/app/services/repository_service.py::create_repository::9",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/repositories.py::list_repositories::39",
+      "target": "backend/app/services/repository_service.py::get_repositories::25",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/api/routes/repositories.py::get_repository_endpoint::49",
+      "target": "backend/app/services/repository_service.py::get_repository::29",
+      "type": "calls"
+    },
+    {
+      "source": "file:backend/app/core/config.py",
+      "target": "backend/app/core/config.py::Settings::6",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "backend/app/core/database.py::Base::22",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "backend/app/core/database.py::get_db::26",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/models/dataset.py",
+      "target": "backend/app/models/dataset.py::Dataset::88",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/models/dataset.py::Dataset::88",
+      "target": "backend/app/core/database.py::Base::22",
+      "type": "inherits"
+    },
+    {
+      "source": "file:backend/app/models/dataset_version.py",
+      "target": "backend/app/models/dataset_version.py::DatasetVersion::11",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/models/dataset_version.py::DatasetVersion::11",
+      "target": "backend/app/core/database.py::Base::22",
+      "type": "inherits"
+    },
+    {
+      "source": "file:backend/app/models/repository.py",
+      "target": "backend/app/models/repository.py::Repository::11",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/models/repository.py::Repository::11",
+      "target": "backend/app/core/database.py::Base::22",
+      "type": "inherits"
+    },
+    {
+      "source": "file:backend/app/schemas/dataset.py",
+      "target": "backend/app/schemas/dataset.py::DatasetResponse::8",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/schemas/dataset.py",
+      "target": "backend/app/schemas/dataset.py::DatasetVersionResponse::21",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/schemas/dataset.py",
+      "target": "backend/app/schemas/dataset.py::DatasetVersionHistoryResponse::34",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/schemas/repository.py",
+      "target": "backend/app/schemas/repository.py::RepositoryCreate::7",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/schemas/repository.py",
+      "target": "backend/app/schemas/repository.py::RepositoryResponse::11",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/dataset_service.py",
+      "target": "backend/app/services/dataset_service.py::calculate_sha256::102",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/dataset_service.py",
+      "target": "backend/app/services/dataset_service.py::get_dataset_metadata::108",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/dataset_service.py",
+      "target": "backend/app/services/dataset_service.py::create_dataset::123",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/dataset_service.py",
+      "target": "backend/app/services/dataset_service.py::get_dataset_versions::233",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/dataset_service.py",
+      "target": "backend/app/services/dataset_service.py::get_dataset_version::265",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/dataset_service.py",
+      "target": "backend/app/services/dataset_service.py::checkout_dataset_version::290",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/services/dataset_service.py::create_dataset::123",
+      "target": "backend/app/services/dataset_service.py::calculate_sha256::102",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/services/dataset_service.py::create_dataset::123",
+      "target": "backend/app/storage/minio_storage.py::object_exists::28",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/services/dataset_service.py::create_dataset::123",
+      "target": "backend/app/storage/minio_storage.py::upload_bytes::38",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/services/dataset_service.py::create_dataset::123",
+      "target": "backend/app/services/dataset_service.py::get_dataset_metadata::108",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/services/dataset_service.py::create_dataset::123",
+      "target": "backend/app/models/dataset.py::Dataset::88",
+      "type": "calls"
+    },
+    {
+      "source": "backend/app/services/dataset_service.py::create_dataset::123",
+      "target": "backend/app/models/dataset_version.py::DatasetVersion::11",
+      "type": "calls"
+    },
+    {
+      "source": "file:backend/app/services/repository_service.py",
+      "target": "backend/app/services/repository_service.py::create_repository::9",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/repository_service.py",
+      "target": "backend/app/services/repository_service.py::get_repositories::25",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/services/repository_service.py",
+      "target": "backend/app/services/repository_service.py::get_repository::29",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/services/repository_service.py::create_repository::9",
+      "target": "backend/app/models/repository.py::Repository::11",
+      "type": "calls"
+    },
+    {
+      "source": "file:backend/app/storage/minio_storage.py",
+      "target": "backend/app/storage/minio_storage.py::MinIOStorage::11",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/storage/minio_storage.py",
+      "target": "backend/app/storage/minio_storage.py::__init__::12",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/storage/minio_storage.py",
+      "target": "backend/app/storage/minio_storage.py::_ensure_bucket::24",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/storage/minio_storage.py",
+      "target": "backend/app/storage/minio_storage.py::object_exists::28",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/storage/minio_storage.py",
+      "target": "backend/app/storage/minio_storage.py::upload_bytes::38",
+      "type": "contains"
+    },
+    {
+      "source": "file:backend/app/storage/minio_storage.py",
+      "target": "backend/app/storage/minio_storage.py::download_bytes::50",
+      "type": "contains"
+    },
+    {
+      "source": "backend/app/storage/minio_storage.py::__init__::12",
+      "target": "backend/app/storage/minio_storage.py::_ensure_bucket::24",
+      "type": "calls"
+    }
+  ]
+}
