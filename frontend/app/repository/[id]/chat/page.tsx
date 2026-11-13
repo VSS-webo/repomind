@@ -78,6 +78,12 @@ function extractAnswer(response: any): string {
     "No answer was returned by the AI."
   );
 }
+const DEMO_QUESTIONS = [
+  "Explain the architecture of this repository",
+  "Where are HTTP retries implemented?",
+  "How does authentication work?",
+  "Explain the main classes and their responsibilities",
+];
 
 function RepositoryChatContent () {
   const params = useParams<{ id: string }>();
@@ -89,43 +95,129 @@ function RepositoryChatContent () {
   const [error, setError] = useState("");
   const [topK, setTopK] = useState("6");
 
-  async function sendQuestion(text?: string) {
-    const query = (text ?? question).trim();
+//   async function sendQuestion(text?: string) {
+//     const query = (text ?? question).trim();
 
-    if (!query || loading) return;
+//     if (!query || loading) return;
 
-    const userMessage: Message = {
-      role: "user",
-      content: query,
+//     const userMessage: Message = {
+//       role: "user",
+//       content: query,
+//     };
+
+//     setMessages((previous) => [...previous, userMessage]);
+//     setQuestion("");
+//     setError("");
+//     setLoading(true);
+
+//     try {
+//       const response = await askRepository(repoId, query, Number(topK));
+
+//       const assistantMessage: Message = {
+//         role: "assistant",
+//         content: extractAnswer(response),
+//         sources: extractSources(response),
+//       };
+
+//       setMessages((previous) => [...previous, assistantMessage]);
+//     } catch (err: any) {
+//       console.error("Repository AI error:", err);
+
+//       setError(
+//         err.response?.data?.detail ||
+//           err.message ||
+//           "Unable to generate an answer. Please try again."
+//       );
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+
+async function sendQuestion(text?: string) {
+  const query = (text ?? question).trim();
+
+  if (!query || loading) return;
+
+  setMessages((previous) => [
+    ...previous,
+    { role: "user", content: query },
+  ]);
+
+  setQuestion("");
+  setError("");
+  setLoading(true);
+
+  try {
+    let response: any;
+
+    if (repoId === "demo") {
+      // Load pre-indexed chat responses
+      const demoResponse = await fetch("/demo/chronix/chat.json");
+
+      if (!demoResponse.ok) {
+        throw new Error("Failed to load Chronix demo chat.");
+      }
+
+      const demoData = await demoResponse.json();
+
+      // Normalize questions for matching
+      const normalize = (value: string) =>
+        value
+          .toLowerCase()
+          .replace(/[^\w\s]/g, "")
+          .replace(/\s+/g, " ")
+          .trim();
+
+      const matchedQuestion = Object.keys(demoData).find(
+        (savedQuestion) =>
+          normalize(savedQuestion) === normalize(query)
+      );
+
+      if (!matchedQuestion) {
+        setMessages((previous) => [
+          ...previous,
+          {
+            role: "assistant",
+            content:
+              "I'm currently running in Chronix Demo Mode. I can answer the suggested questions using pre-indexed repository knowledge. Please try one of the example questions shown on the screen.",
+          },
+        ]);
+
+        return;
+      }
+
+      response = demoData[matchedQuestion];
+    } else {
+      // Normal live backend chat
+      response = await askRepository(
+        repoId,
+        query,
+        Number(topK)
+      );
+    }
+
+    const assistantMessage: Message = {
+      role: "assistant",
+      content: extractAnswer(response),
+      sources: extractSources(response),
     };
 
-    setMessages((previous) => [...previous, userMessage]);
-    setQuestion("");
-    setError("");
-    setLoading(true);
+    setMessages((previous) => [
+      ...previous,
+      assistantMessage,
+    ]);
+  } catch (err: any) {
+    console.error("Repository AI error:", err);
 
-    try {
-      const response = await askRepository(repoId, query, Number(topK));
-
-      const assistantMessage: Message = {
-        role: "assistant",
-        content: extractAnswer(response),
-        sources: extractSources(response),
-      };
-
-      setMessages((previous) => [...previous, assistantMessage]);
-    } catch (err: any) {
-      console.error("Repository AI error:", err);
-
-      setError(
-        err.response?.data?.detail ||
-          err.message ||
-          "Unable to generate an answer. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
+    setError(
+      err.response?.data?.detail ||
+        err.message ||
+        "Unable to generate an answer. Please try again."
+    );
+  } finally {
+    setLoading(false);
   }
+}
 
   function clearChat() {
     if (loading) return;
@@ -148,6 +240,13 @@ function RepositoryChatContent () {
                 RAG
               </span>
             </div>
+
+            {repoId === "demo" && (
+  <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-400">
+    <span className="h-2 w-2 rounded-full bg-emerald-400" />
+    Pre-indexed Demo · Chronix
+  </div>
+)}
 
             <p className="mt-1 text-sm text-gray-500">
               Ask questions and understand your codebase with AI.
@@ -201,12 +300,22 @@ function RepositoryChatContent () {
                 </p>
 
                 <div className="mt-8 grid w-full max-w-2xl gap-3 sm:grid-cols-2">
-                  {[
+                  {/* {[
                     "Explain the architecture of this repository",
                     "Where are HTTP retries implemented?",
                     "How does authentication work?",
                     "Explain the main classes and their responsibilities",
-                  ].map((suggestion) => (
+                  ].map((suggestion) => ( */}
+                  {(
+  repoId === "demo"
+    ? DEMO_QUESTIONS
+    : [
+        "Explain the architecture of this repository",
+        "Where are HTTP retries implemented?",
+        "How does authentication work?",
+        "Explain the main classes and their responsibilities",
+      ]
+).map((suggestion) => (
                     <button
                       key={suggestion}
                       onClick={() => sendQuestion(suggestion)}

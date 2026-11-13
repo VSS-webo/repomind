@@ -93,6 +93,38 @@ for query in search_queries:
 
 save_json("search.json", search_data)
 
+# Chat demo export
+chat_questions = [
+    "Explain the architecture of this repository",
+    "Where are HTTP retries implemented?",
+    "How does authentication work?",
+    "Explain the main classes and their responsibilities",
+]
+
+chat_data = {}
+
+for question in chat_questions:
+    print("\nGenerating answer:", question)
+
+    try:
+        response = requests.post(
+            f"{API_URL}/api/repositories/{REPO_ID}/ask",
+            json={
+                "question": question,
+                "top_k": 6
+            },
+            timeout=120
+        )
+
+        print("Status:", response.status_code)
+        response.raise_for_status()
+
+        chat_data[question] = response.json()
+
+    except Exception as e:
+        print("CHAT FAILED:", e)
+
+save_json("chat.json", chat_data)
 
 # --------------------------------------------------
 # EXPORT COMPLETE

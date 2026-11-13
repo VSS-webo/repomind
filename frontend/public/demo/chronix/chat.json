@@ -1,0 +1,258 @@
+{
+  "Explain the architecture of this repository": {
+    "repo_id": "c039c1a6-6331-4210-b7dd-b4748ed27ab5",
+    "question": "Explain the architecture of this repository",
+    "answer": "Based on the provided repository context, here is an explanation of the architecture of the available backend code.\n\n---\n\n### Observed Architectural Layers\n\nThe repository evidence shows a layered Python backend structure (likely using FastAPI, SQLAlchemy, and Alembic):\n\n1. **API / Route Layer (`backend/app/api/routes/`)**\n   * Handles incoming HTTP requests and returns structured responses or raises HTTP exceptions [S1, S2].\n   * Uses FastAPI dependency injection (`Depends(get_db)`) to inject database sessions into endpoint handlers [S1, S2].\n   * Implements validation checks to ensure dataset resources belong to the expected repository (`dataset.repository_id != repository_id`), throwing a `404 Not Found` error when mismatches occur [S1, S2].\n\n2. **Service Layer (`",
+    "sources": [
+      {
+        "id": "S1",
+        "file": "backend/app/api/routes/datasets.py",
+        "name": "get_dataset_version_history",
+        "type": "function",
+        "line": 157,
+        "end_line": 187,
+        "code": "def get_dataset_version_history(\n    repository_id: int,\n    dataset_id: int,\n    db: Session = Depends(get_db),\n):\n    result = get_dataset_versions(\n        db=db,\n        dataset_id=dataset_id,\n    )\n\n    if result is None:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset not found\",\n        )\n\n    dataset, versions = result\n\n    # Make sure the dataset actually belongs\n    # to the repository in the URL.\n    if dataset.repository_id != repository_id:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset not found in this repository\",\n        )\n\n    return {\n        \"dataset_id\": dataset.id,\n        \"dataset_name\": dataset.name,\n        \"versions\": versions,\n    }"
+      },
+      {
+        "id": "S2",
+        "file": "backend/app/api/routes/datasets.py",
+        "name": "get_specific_dataset_version",
+        "type": "function",
+        "line": 193,
+        "end_line": 220,
+        "code": "def get_specific_dataset_version(\n    repository_id: int,\n    dataset_id: int,\n    version_number: int,\n    db: Session = Depends(get_db),\n):\n    result = get_dataset_version(\n        db=db,\n        dataset_id=dataset_id,\n        version_number=version_number,\n    )\n\n    if result is None:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset version not found\",\n        )\n\n    dataset, version = result\n\n    # Make sure the dataset belongs to this repository\n    if dataset.repository_id != repository_id:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset version not found\",\n        )\n\n    return version"
+      },
+      {
+        "id": "S3",
+        "file": "backend/alembic/env.py",
+        "name": "run_migrations_offline",
+        "type": "function",
+        "line": 33,
+        "end_line": 54,
+        "code": "def run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()"
+      },
+      {
+        "id": "S4",
+        "file": "backend/app/schemas/repository.py",
+        "name": "RepositoryCreate",
+        "type": "class",
+        "line": 7,
+        "end_line": 8,
+        "code": "class RepositoryCreate(BaseModel):\n    name: str"
+      },
+      {
+        "id": "S5",
+        "file": "backend/app/services/repository_service.py",
+        "name": "create_repository",
+        "type": "function",
+        "line": 9,
+        "end_line": 22,
+        "code": "def create_repository(\n    db: Session,\n    repository_data: RepositoryCreate,\n) -> Repository:\n\n    repository = Repository(\n        name=repository_data.name\n    )\n\n    db.add(repository)\n    db.commit()\n    db.refresh(repository)\n\n    return repository"
+      },
+      {
+        "id": "S6",
+        "file": "backend/app/models/repository.py",
+        "name": "Repository",
+        "type": "class",
+        "line": 11,
+        "end_line": 33,
+        "code": "class Repository(Base):\n    __tablename__ = \"repositories\"\n\n    id: Mapped[int] = mapped_column(primary_key=True)\n\n    name: Mapped[str] = mapped_column(\n        String(255),\n        nullable=False,\n        unique=True,\n        index=True,\n    )\n\n    created_at: Mapped[datetime] = mapped_column(\n        DateTime,\n        default=datetime.utcnow,\n        nullable=False,\n    )\n\n    datasets = relationship(\n        \"Dataset\",\n        back_populates=\"repository\",\n        cascade=\"all, delete-orphan\",\n    )"
+      }
+    ],
+    "retrieved_count": 18,
+    "context_count": 6,
+    "retrieval": "hybrid"
+  },
+  "Where are HTTP retries implemented?": {
+    "repo_id": "c039c1a6-6331-4210-b7dd-b4748ed27ab5",
+    "question": "Where are HTTP retries implemented?",
+    "answer": "I couldn't find sufficient evidence in the indexed repository to answer this confidently.\n\n### What was found\nThe provided repository snippets include API route handlers for repositories [S1, S2, S6] and datasets [S3, S5], as well as an Alembic database migration script [S4]. None of these sources contain implementations or configurations for HTTP retries.\n\n### What additional code would be needed\nTo answer where HTTP retries are implemented, access to the following would be needed:\n* Outbound HTTP client configurations or utilities (such as `httpx`, `requests`, or custom API clients).\n* Middleware or request/response interceptor logic handling network call retries or backoff strategies.",
+    "sources": [
+      {
+        "id": "S1",
+        "file": "backend/app/api/routes/repositories.py",
+        "name": "get_repository_endpoint",
+        "type": "function",
+        "line": 49,
+        "end_line": 61,
+        "code": "def get_repository_endpoint(\n    repository_id: int,\n    db: Session = Depends(get_db),\n):\n    repository = get_repository(db, repository_id)\n\n    if repository is None:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Repository not found\",\n        )\n\n    return repository"
+      },
+      {
+        "id": "S2",
+        "file": "backend/app/api/routes/repositories.py",
+        "name": "create_repository_endpoint",
+        "type": "function",
+        "line": 28,
+        "end_line": 32,
+        "code": "def create_repository_endpoint(\n    repository_data: RepositoryCreate,\n    db: Session = Depends(get_db),\n):\n    return create_repository(db, repository_data)"
+      },
+      {
+        "id": "S3",
+        "file": "backend/app/api/routes/datasets.py",
+        "name": "get_specific_dataset_version",
+        "type": "function",
+        "line": 193,
+        "end_line": 220,
+        "code": "def get_specific_dataset_version(\n    repository_id: int,\n    dataset_id: int,\n    version_number: int,\n    db: Session = Depends(get_db),\n):\n    result = get_dataset_version(\n        db=db,\n        dataset_id=dataset_id,\n        version_number=version_number,\n    )\n\n    if result is None:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset version not found\",\n        )\n\n    dataset, version = result\n\n    # Make sure the dataset belongs to this repository\n    if dataset.repository_id != repository_id:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset version not found\",\n        )\n\n    return version"
+      },
+      {
+        "id": "S4",
+        "file": "backend/alembic/env.py",
+        "name": "run_migrations_offline",
+        "type": "function",
+        "line": 33,
+        "end_line": 54,
+        "code": "def run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()"
+      },
+      {
+        "id": "S5",
+        "file": "backend/app/api/routes/datasets.py",
+        "name": "checkout_dataset",
+        "type": "function",
+        "line": 275,
+        "end_line": 308,
+        "code": "def checkout_dataset(\n    repository_id: int,\n    dataset_id: int,\n    version_number: int,\n    db: Session = Depends(get_db),\n):\n    result = checkout_dataset_version(\n        db=db,\n        dataset_id=dataset_id,\n        version_number=version_number,\n    )\n\n    if result is None:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset version not found\",\n        )\n\n    dataset, version = result\n\n    if dataset.repository_id != repository_id:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset not found in this repository\",\n        )\n\n    return {\n        \"message\": f\"Dataset checked out to version {version.version_number}.\",\n        \"dataset_id\": dataset.id,\n        \"dataset_name\": dataset.name,\n        \"current_version\": version.version_number,\n        \"current_version_id\": version.id,\n        \"object_hash\": version.object_hash,\n    }"
+      },
+      {
+        "id": "S6",
+        "file": "backend/app/api/routes/repositories.py",
+        "name": "list_repositories",
+        "type": "function",
+        "line": 39,
+        "end_line": 42,
+        "code": "def list_repositories(\n    db: Session = Depends(get_db),\n):\n    return get_repositories(db)"
+      }
+    ],
+    "retrieved_count": 18,
+    "context_count": 6,
+    "retrieval": "hybrid"
+  },
+  "How does authentication work?": {
+    "repo_id": "c039c1a6-6331-4210-b7dd-b4748ed27ab5",
+    "question": "How does authentication work?",
+    "answer": "I couldn't find sufficient evidence in the indexed repository to answer this confidently.\n\n### What Was Found\n- **MinIO Storage Credentials**: The `MinIOStorage` class uses `settings.minio_access_key` and `settings.minio_secret_key` to authenticate with the underlying MinIO object storage client [S2, S4].\n- **Health Check Endpoint**: The `health_check` function in `backend/app/main.py` returns basic environment details without requiring any authentication [S5].\n- **Database & Schemas**: Alembic migration scripts [S1, S3] and repository schemas [S6] exist, but they do not contain user authentication logic or credentials handling for app users.\n\n### Additional Code Needed\nTo explain user or API authentication, the repository would need:\n- Authentication endpoints or handlers (e.g., login, logout, password hashing, user registration).\n- Authentication dependencies or middleware (e.g., JWT verification, session management, OAuth security schemes, or API key validation).\n- User models or security schemas handling credentials and authorization rules.",
+    "sources": [
+      {
+        "id": "S1",
+        "file": "backend/alembic/env.py",
+        "name": "run_migrations_online",
+        "type": "function",
+        "line": 57,
+        "end_line": 76,
+        "code": "def run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )\n\n    with connectable.connect() as connection:\n        context.configure(\n            connection=connection, target_metadata=target_metadata\n        )\n\n        with context.begin_transaction():\n            context.run_migrations()"
+      },
+      {
+        "id": "S2",
+        "file": "backend/app/storage/minio_storage.py",
+        "name": "__init__",
+        "type": "method",
+        "line": 12,
+        "end_line": 22,
+        "code": "    def __init__(self):\n        self.client = Minio(\n            settings.minio_endpoint,\n            access_key=settings.minio_access_key,\n            secret_key=settings.minio_secret_key,\n            secure=settings.minio_secure,\n        )\n\n        self.bucket = settings.minio_bucket\n\n        self._ensure_bucket()"
+      },
+      {
+        "id": "S3",
+        "file": "backend/alembic/env.py",
+        "name": "run_migrations_offline",
+        "type": "function",
+        "line": 33,
+        "end_line": 54,
+        "code": "def run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()"
+      },
+      {
+        "id": "S4",
+        "file": "backend/app/storage/minio_storage.py",
+        "name": "MinIOStorage",
+        "type": "class",
+        "line": 11,
+        "end_line": 60,
+        "code": "class MinIOStorage:\n    def __init__(self):\n        self.client = Minio(\n            settings.minio_endpoint,\n            access_key=settings.minio_access_key,\n            secret_key=settings.minio_secret_key,\n            secure=settings.minio_secure,\n        )\n\n        self.bucket = settings.minio_bucket\n\n        self._ensure_bucket()\n\n    def _ensure_bucket(self):\n        if not self.client.bucket_exists(self.bucket):\n            self.client.make_bucket(self.bucket)\n\n    def object_exists(self, object_name: str) -> bool:\n        try:\n            self.client.stat_object(\n                self.bucket,\n                object_name,\n            )\n            return True\n        except Exception:\n            return False\n\n    def upload_bytes(\n        self,\n        object_name: str,\n        data: bytes,\n    ):\n        self.client.put_object(\n            self.bucket,\n            object_name,\n            BytesIO(data),\n            length=len(data),\n        )\n\n    def download_bytes(self, object_name: str) -> bytes:\n        response = self.client.get_object(\n        self.bucket,\n        object_name,\n    )\n\n        try:\n            return response.read()\n        finally:\n            response.close()\n            response.release_conn()"
+      },
+      {
+        "id": "S5",
+        "file": "backend/app/main.py",
+        "name": "health_check",
+        "type": "function",
+        "line": 20,
+        "end_line": 25,
+        "code": "def health_check():\n    return {\n        \"status\": \"ok\",\n        \"service\": \"chronix\",\n        \"environment\": settings.app_env,\n    }"
+      },
+      {
+        "id": "S6",
+        "file": "backend/app/schemas/repository.py",
+        "name": "RepositoryCreate",
+        "type": "class",
+        "line": 7,
+        "end_line": 8,
+        "code": "class RepositoryCreate(BaseModel):\n    name: str"
+      }
+    ],
+    "retrieved_count": 18,
+    "context_count": 6,
+    "retrieval": "hybrid"
+  },
+  "Explain the main classes and their responsibilities": {
+    "repo_id": "c039c1a6-6331-4210-b7dd-b4748ed27ab5",
+    "question": "Explain the main classes and their responsibilities",
+    "answer": "I couldn't find sufficient evidence in the indexed repository to answer this confidently.\n\n### What Was Found\n\n* **Directly Observed References**: The provided source files reference several class entities such as `Dataset` and `DatasetVersion` inside service logic [S6] and API route handlers [S4]. Additionally, third-party/library classes such as `Session` (SQLAlchemy context) [S4, S6] and `HTTPException` (FastAPI) [S4] are used as type annotations and error handlers.\n* **Reasonable Inference**: Based on usage in `backend/app/services/dataset_service.py` [S6] and `backend/app/api/routes/datasets.py` [S4], `Dataset` and `DatasetVersion` appear to be ORM models representing database tables (`datasets` and `dataset_versions`), tracking repository assignment, version numbers, file hashes, sizes, and schemas.\n* **Missing Evidence**: None of the actual `class` definitions or implementations (e.g., ORM models, Pydantic schemas, or service class interfaces) are present in the provided repository context (S1–S6).\n\n### Additional Code Needed\n\nTo fully explain the main classes and their responsibilities, the following additional files would be required:\n* The model definition files (e.g., `backend/app/models/dataset.py` or equivalent ORM model definitions where `class Dataset` and `class DatasetVersion` are defined).\n* Any service or manager class definitions if they exist (e.g., `Storage` manager definitions referenced via `storage` in `dataset_service.py` [S6]).",
+    "sources": [
+      {
+        "id": "S1",
+        "file": "backend/alembic/env.py",
+        "name": "run_migrations_offline",
+        "type": "function",
+        "line": 33,
+        "end_line": 54,
+        "code": "def run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()"
+      },
+      {
+        "id": "S2",
+        "file": "backend/app/main.py",
+        "name": "health_check",
+        "type": "function",
+        "line": 20,
+        "end_line": 25,
+        "code": "def health_check():\n    return {\n        \"status\": \"ok\",\n        \"service\": \"chronix\",\n        \"environment\": settings.app_env,\n    }"
+      },
+      {
+        "id": "S3",
+        "file": "backend/alembic/env.py",
+        "name": "run_migrations_online",
+        "type": "function",
+        "line": 57,
+        "end_line": 76,
+        "code": "def run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )\n\n    with connectable.connect() as connection:\n        context.configure(\n            connection=connection, target_metadata=target_metadata\n        )\n\n        with context.begin_transaction():\n            context.run_migrations()"
+      },
+      {
+        "id": "S4",
+        "file": "backend/app/api/routes/datasets.py",
+        "name": "get_dataset_version_history",
+        "type": "function",
+        "line": 157,
+        "end_line": 187,
+        "code": "def get_dataset_version_history(\n    repository_id: int,\n    dataset_id: int,\n    db: Session = Depends(get_db),\n):\n    result = get_dataset_versions(\n        db=db,\n        dataset_id=dataset_id,\n    )\n\n    if result is None:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset not found\",\n        )\n\n    dataset, versions = result\n\n    # Make sure the dataset actually belongs\n    # to the repository in the URL.\n    if dataset.repository_id != repository_id:\n        raise HTTPException(\n            status_code=404,\n            detail=\"Dataset not found in this repository\",\n        )\n\n    return {\n        \"dataset_id\": dataset.id,\n        \"dataset_name\": dataset.name,\n        \"versions\": versions,\n    }"
+      },
+      {
+        "id": "S5",
+        "file": "backend/alembic/versions/f59823c1dd7c_create_repositories_and_datasets.py",
+        "name": "downgrade",
+        "type": "function",
+        "line": 43,
+        "end_line": 49,
+        "code": "def downgrade() -> None:\n    \"\"\"Downgrade schema.\"\"\"\n    # ### commands auto generated by Alembic - please adjust! ###\n    op.drop_index(op.f('ix_datasets_repository_id'), table_name='datasets')\n    op.drop_table('datasets')\n    op.drop_index(op.f('ix_repositories_name'), table_name='repositories')\n    op.drop_table('repositories')"
+      },
+      {
+        "id": "S6",
+        "file": "backend/app/services/dataset_service.py",
+        "name": "create_dataset",
+        "type": "function",
+        "line": 123,
+        "end_line": 202,
+        "code": "def create_dataset(\n    db: Session,\n    repository_id: int,\n    filename: str,\n    data: bytes,\n) -> tuple[Dataset, DatasetVersion, bool]:\n\n    # ---------------------------------------------------------\n    # 1. Calculate content hash\n    # ---------------------------------------------------------\n    file_hash = calculate_sha256(data)\n\n    # ---------------------------------------------------------\n    # 2. Check whether the actual object already exists\n    # ---------------------------------------------------------\n    if not storage.object_exists(file_hash):\n        storage.upload_bytes(file_hash, data)\n\n    # ---------------------------------------------------------\n    # 3. Find the logical dataset\n    # ---------------------------------------------------------\n    dataset = (\n        db.query(Dataset)\n        .filter(\n            Dataset.repository_id == repository_id,\n            Dataset.name == filename,\n        )\n        .first()\n    )\n\n    # ---------------------------------------------------------\n    # 4. First upload → create dataset + V1\n    # ---------------------------------------------------------\n    if dataset is None:\n\n        metadata = get_dataset_metadata(data)\n\n        dataset = Dataset(\n            repository_id=repository_id,\n            name=filename,\n        )\n\n        db.add(dataset)\n        db.flush()\n\n        version = DatasetVersion(\n            dataset_id=dataset.id,\n            version_number=1,\n            object_hash=file_hash,\n            file_size=len(data),\n            row_count=metadata[\"row_count\"],\n            column_count=metadata[\"column_count\"],\n            schema=metadata[\"schema\"],\n        )\n\n        db.add(version)\n        db.commit()\n        db.refresh(dataset)\n        db.refresh(version)\n\n        return dataset, version, True\n\n    # ---------------------------------------------------------\n    # 5. Existing dataset → get latest version\n    # ---------------------------------------------------------\n    latest_version = (\n        db.query(DatasetVersion)\n        .filter(\n            DatasetVersion.dataset_id == dataset.id\n        )\n        .order_by(\n            DatasetVersion.version_number.desc()\n        )\n        .first()\n    )\n\n    if latest_version is None:\n        raise ValueError(\n            \"Dataset exists but has no versions.\"\n        )"
+      }
+    ],
+    "retrieved_count": 18,
+    "context_count": 6,
+    "retrieval": "hybrid"
+  }
+}
