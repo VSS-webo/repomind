@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState , Suspense} from "react";
 import { useParams } from "next/navigation";
 import {
   ShieldCheck,
@@ -27,7 +27,7 @@ type Finding = {
   suggestion?: string;
 };
 
-export default function CodeReviewPage() {
+function CodeReviewPageContent() {
   const params = useParams<{ id: string }>();
   const repoId = params.id;
 
@@ -283,5 +283,18 @@ export default function CodeReviewPage() {
         </div>
       </main>
     </div>
+  );
+}
+export default function CodeReviewPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <CodeReviewPageContent />
+    </Suspense>
   );
 }

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import {
   Search,
@@ -17,7 +17,7 @@ import {
 
 import { cloneRepository } from "@/lib/api";
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
 
   const [repoUrl, setRepoUrl] = useState("");
@@ -220,5 +220,18 @@ export default function Home() {
         </div>
       </footer>
     </main>
+  );
+}
+export default function Home() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }

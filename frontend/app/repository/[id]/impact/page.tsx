@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense} from "react";
 import { useParams } from "next/navigation";
 import {
   GitBranch,
@@ -34,7 +34,7 @@ type ImpactResult = {
   [key: string]: any;
 };
 
-export default function ImpactAnalysisPage() {
+function ImpactAnalysisPageContent() {
   const params = useParams<{ id: string }>();
   const repoId = params.id;
 
@@ -300,5 +300,18 @@ export default function ImpactAnalysisPage() {
         </div>
       </main>
     </div>
+  );
+}
+export default function ImpactAnalysisPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <ImpactAnalysisPageContent />
+    </Suspense>
   );
 }

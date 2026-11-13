@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useParams } from "next/navigation";
 import {
   Search,
@@ -28,7 +28,7 @@ type SearchResult = {
   metadata?: Record<string, any>;
 };
 
-export default function SemanticSearchPage() {
+function SemanticSearchPageContent() {
   const params = useParams<{ id: string }>();
   const repoId = params.id;
 
@@ -338,5 +338,18 @@ export default function SemanticSearchPage() {
         </div>
       </main>
     </div>
+  );
+}
+export default function SemanticSearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <SemanticSearchPageContent />
+    </Suspense>
   );
 }

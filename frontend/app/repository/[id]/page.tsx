@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   GitBranch,
@@ -42,7 +42,7 @@ type Analysis = {
   [key: string]: any;
 };
 
-export default function RepositoryDashboard() {
+function RepositoryDashboardContent() {
   const params = useParams();
   const router = useRouter();
 
@@ -304,5 +304,18 @@ export default function RepositoryDashboard() {
         </footer>
       </main>
     </div>
+  );
+}
+export default function RepositoryDashboard() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <RepositoryDashboardContent />
+    </Suspense>
   );
 }

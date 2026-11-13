@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import { useParams } from "next/navigation";
 import {
   ReactFlow,
@@ -180,7 +180,7 @@ function normalizeGraph(raw: any): { nodes: Node<GraphNodeData>[]; edges: Edge[]
   return { nodes, edges };
 }
 
-export default function DependencyGraphPage() {
+function DependencyGraphPageContent() {
   const params = useParams<{ id: string }>();
   const repoId = params.id;
 
@@ -484,5 +484,19 @@ export default function DependencyGraphPage() {
         </footer>
       </main>
     </div>
+  );
+}
+
+export default function DependencyGraphPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <DependencyGraphPageContent />
+    </Suspense>
   );
 }

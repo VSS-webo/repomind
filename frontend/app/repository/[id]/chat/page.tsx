@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState , Suspense } from "react";
 import { useParams } from "next/navigation";
 import {
   Brain,
@@ -79,7 +79,7 @@ function extractAnswer(response: any): string {
   );
 }
 
-export default function RepositoryChatPage() {
+function RepositoryChatContent () {
   const params = useParams<{ id: string }>();
   const repoId = params.id;
 
@@ -419,5 +419,18 @@ function SourcesPanel({ sources }: { sources: Source[] }) {
         </div>
       )}
     </div>
+  );
+}
+export default function RepositoryChatPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#080b14] text-gray-400">
+          Loading RepoMind AI...
+        </div>
+      }
+    >
+      <RepositoryChatContent  />
+    </Suspense>
   );
 }
