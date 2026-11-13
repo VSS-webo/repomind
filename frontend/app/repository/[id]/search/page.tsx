@@ -39,67 +39,161 @@ function SemanticSearchPageContent() {
   const [searched, setSearched] = useState(false);
   const [topK, setTopK] = useState("8");
 
-  async function handleSearch(e?: React.FormEvent) {
-    e?.preventDefault();
+//   async function handleSearch(e?: React.FormEvent) {
+//     e?.preventDefault();
 
-    if (!query.trim()) return;
+//     if (!query.trim()) return;
 
-    try {
-      setLoading(true);
-      setError("");
-      setSearched(true);
+//     try {
+//       setLoading(true);
+//       setError("");
+//       setSearched(true);
 
-      const response = await searchRepository(repoId, query, Number(topK));
+//       const response = await searchRepository(repoId, query, Number(topK));
 
-      const rawResults =
-        response.results ??
-        response.data?.results ??
-        response.matches ??
-        [];
+//       const rawResults =
+//         response.results ??
+//         response.data?.results ??
+//         response.matches ??
+//         [];
 
-      setResults(
-        rawResults.map((item: any) => {
-          const metadata = item.metadata ?? {};
+//       setResults(
+//         rawResults.map((item: any) => {
+//           const metadata = item.metadata ?? {};
 
-          return {
-            ...item,
-            file:
-              item.file ??
-              metadata.file ??
-              metadata.file_path ??
-              metadata.source ??
-              "Unknown file",
-            name:
-              item.name ??
-              metadata.name ??
-              metadata.symbol ??
-              metadata.function ??
-              "",
-            type: item.type ?? metadata.type ?? "code",
-            code:
-              item.code ??
-              item.snippet ??
-              item.content ??
-              metadata.code ??
-              "",
-            distance: item.distance,
-            score: item.score,
-            metadata,
-          };
-        })
+//           return {
+//             ...item,
+//             file:
+//               item.file ??
+//               metadata.file ??
+//               metadata.file_path ??
+//               metadata.source ??
+//               "Unknown file",
+//             name:
+//               item.name ??
+//               metadata.name ??
+//               metadata.symbol ??
+//               metadata.function ??
+//               "",
+//             type: item.type ?? metadata.type ?? "code",
+//             code:
+//               item.code ??
+//               item.snippet ??
+//               item.content ??
+//               metadata.code ??
+//               "",
+//             distance: item.distance,
+//             score: item.score,
+//             metadata,
+//           };
+//         })
+//       );
+//     } catch (err: any) {
+//       console.error("Semantic search error:", err);
+//       setResults([]);
+//       setError(
+//         err.response?.data?.detail ||
+//           err.message ||
+//           "Search failed. Please try again."
+//       );
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+
+
+async function handleSearch(e?: React.FormEvent) {
+  e?.preventDefault();
+
+  if (!query.trim()) return;
+
+  try {
+    setLoading(true);
+    setError("");
+    setSearched(true);
+
+    let response: any;
+
+    if (repoId === "demo") {
+      // Load precomputed Chronix search results
+      const demoResponse = await fetch("/demo/chronix/search.json");
+
+      if (!demoResponse.ok) {
+        throw new Error("Failed to load Chronix demo search data");
+      }
+
+      const demoData = await demoResponse.json();
+
+      // Match saved query, ignoring case and surrounding spaces
+      const matchedQuery = Object.keys(demoData).find(
+        (savedQuery) =>
+          savedQuery.trim().toLowerCase() === query.trim().toLowerCase()
       );
-    } catch (err: any) {
-      console.error("Semantic search error:", err);
-      setResults([]);
-      setError(
-        err.response?.data?.detail ||
-          err.message ||
-          "Search failed. Please try again."
-      );
-    } finally {
-      setLoading(false);
+
+      if (!matchedQuery) {
+        setResults([]);
+        setError(
+          "Demo Mode supports the suggested example queries. Select one of the examples below."
+        );
+        return;
+      }
+
+      response = demoData[matchedQuery];
+    } else {
+      // Normal live repository search
+      response = await searchRepository(repoId, query, Number(topK));
     }
+
+    const rawResults =
+      response.results ??
+      response.data?.results ??
+      response.matches ??
+      [];
+
+    setResults(
+      rawResults.map((item: any) => {
+        const metadata = item.metadata ?? {};
+
+        return {
+          ...item,
+          file:
+            item.file ??
+            metadata.file ??
+            metadata.file_path ??
+            metadata.source ??
+            "Unknown file",
+          name:
+            item.name ??
+            metadata.name ??
+            metadata.symbol ??
+            metadata.function ??
+            "",
+          type: item.type ?? metadata.type ?? "code",
+          code:
+            item.code ??
+            item.snippet ??
+            item.content ??
+            metadata.code ??
+            "",
+          distance: item.distance,
+          score: item.score,
+          metadata,
+        };
+      })
+    );
+  } catch (err: any) {
+    console.error("Semantic search error:", err);
+    setResults([]);
+    setError(
+      err.response?.data?.detail ||
+        err.message ||
+        "Search failed. Please try again."
+    );
+  } finally {
+    setLoading(false);
   }
+}
+
 
   function similarityLabel(result: SearchResult) {
     if (typeof result.score === "number") {
@@ -131,6 +225,13 @@ function SemanticSearchPageContent() {
             Find relevant code using natural language and semantic similarity.
           </p>
         </header>
+
+        {repoId === "demo" && (
+  <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-400">
+    <span className="h-2 w-2 rounded-full bg-emerald-400" />
+    Pre-indexed Demo · Chronix
+  </div>
+)}
 
         <div className="mx-auto max-w-5xl space-y-6 p-6">
           {/* Search box */}
@@ -171,10 +272,10 @@ function SemanticSearchPageContent() {
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap gap-2">
                 {[
-                  "Where are HTTP retries handled?",
-                  "How does authentication work?",
-                  "How are request headers prepared?",
-                ].map((suggestion) => (
+  "Where are HTTP retries handled?",
+  "Where are the main classes defined?",
+  "How is the repository structured?",
+].map((suggestion) => (
                   <button
                     key={suggestion}
                     type="button"
@@ -218,9 +319,12 @@ function SemanticSearchPageContent() {
                   {results.length} matching code chunks
                 </p>
               </div>
-              <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-xs text-indigo-300">
+              {/* <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-xs text-indigo-300">
                 Semantic search
-              </span>
+              </span> */}
+              <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-xs text-indigo-300">
+  {repoId === "demo" ? "Saved semantic results" : "Semantic search"}
+</span>
             </div>
           )}
 
