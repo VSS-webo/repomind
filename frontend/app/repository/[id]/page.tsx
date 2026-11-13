@@ -54,27 +54,110 @@ function RepositoryDashboardContent() {
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
 
-  async function loadRepository() {
-    setLoading(true);
-    setError("");
+  // async function loadRepository() {
+  //   setLoading(true);
+  //   setError("");
 
-    try {
-      const data = await getRepository(repoId);
-      setRepo(data);
+  //   try {
+  //     const data = await getRepository(repoId);
+  //     setRepo(data);
 
-      // If metadata already contains analysis statistics
-      if (data.statistics) {
-        setAnalysis(data);
+  //     // If metadata already contains analysis statistics
+  //     if (data.statistics) {
+  //       setAnalysis(data);
+  //     }
+  //   } catch (err: any) {
+  //     setError(
+  //       err.response?.data?.detail ||
+  //         "Could not load repository."
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+
+
+async function loadRepository() {
+  setLoading(true);
+  setError("");
+
+  try {
+    if (repoId === "demo") {
+      const [repositoryResponse, graphResponse] = await Promise.all([
+        fetch("/demo/chronix/repository.json"),
+        fetch("/demo/chronix/graph.json"),
+      ]);
+
+      if (!repositoryResponse.ok || !graphResponse.ok) {
+        throw new Error("Unable to load Chronix demo data.");
       }
-    } catch (err: any) {
-      setError(
-        err.response?.data?.detail ||
-          "Could not load repository."
+
+      const repositoryData = await repositoryResponse.json();
+      const graphData = await graphResponse.json();
+
+      const nodes = graphData.nodes ?? graphData.data?.nodes ?? [];
+      const edges = graphData.edges ?? graphData.data?.edges ?? [];
+
+      const uniqueFiles = new Set(
+        nodes.map((node: any) => node.file).filter(Boolean)
       );
-    } finally {
-      setLoading(false);
+
+      const functions = nodes.filter(
+        (node: any) =>
+          ["function", "async_function"].includes(
+            String(node.type).toLowerCase()
+          )
+      ).length;
+
+      const classes = nodes.filter(
+        (node: any) => String(node.type).toLowerCase() === "class"
+      ).length;
+
+      const methods = nodes.filter(
+        (node: any) => String(node.type).toLowerCase() === "method"
+      ).length;
+
+      const statistics = repositoryData.statistics ?? {};
+
+      setRepo({
+        ...repositoryData,
+        repo_id: "demo",
+        name: "Chronix",
+        url: "https://github.com/VSS-webo/chronix",
+        description: "Pre-indexed Chronix repository",
+      });
+
+      setAnalysis({
+        statistics: {
+          files: statistics.files ?? uniqueFiles.size,
+          functions: statistics.functions ?? functions,
+          classes: statistics.classes ?? classes,
+          methods: statistics.methods ?? methods,
+          nodes: statistics.nodes ?? nodes.length,
+          edges: statistics.edges ?? edges.length,
+        },
+      });
+
+      return;
     }
+
+    const data = await getRepository(repoId);
+    setRepo(data);
+
+    if (data.statistics) {
+      setAnalysis(data);
+    }
+  } catch (err: any) {
+    setError(
+      err.response?.data?.detail ||
+        err.message ||
+        "Could not load repository."
+    );
+  } finally {
+    setLoading(false);
   }
+}
+
 
   async function handleAnalyze() {
     setAnalyzing(true);
@@ -130,13 +213,21 @@ function RepositoryDashboardContent() {
       href: `/repository/${repoId}/graph`,
       color: "text-cyan-400",
     },
+    // {
+    //   title: "Impact Analysis",
+    //   description: "Understand how code changes affect other modules.",
+    //   icon: GitBranch,
+    //   href: `/repository/${repoId}/impact`,
+    //   color: "text-orange-400",
+    // },
     {
-      title: "Impact Analysis",
-      description: "Understand how code changes affect other modules.",
-      icon: GitBranch,
-      href: `/repository/${repoId}/impact`,
-      color: "text-orange-400",
-    },
+  title: "Impact Analysis",
+  description: "Understand how code changes affect other modules.",
+  icon: GitBranch,
+  href: `/repository/${repoId}/impact`,
+  color: "text-orange-400",
+  demoDisabled: true,
+},
     {
       title: "Semantic Search",
       description: "Search code using natural-language queries.",
@@ -184,7 +275,9 @@ function RepositoryDashboardContent() {
             </p>
           </div>
 
-          <button
+          {/* <button
+
+
             onClick={handleAnalyze}
             disabled={analyzing}
             className="flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-5 py-3 font-medium transition hover:bg-indigo-400 disabled:opacity-50"
@@ -196,7 +289,23 @@ function RepositoryDashboardContent() {
             )}
 
             {analyzing ? "Analyzing..." : "Analyze Repository"}
-          </button>
+          </button> */}
+
+          {repoId !== "demo" && (
+  <button
+    onClick={handleAnalyze}
+    disabled={analyzing}
+    className="flex items-center justify-center gap-2 rounded-xl bg-indigo-500 px-5 py-3 font-medium transition hover:bg-indigo-400 disabled:opacity-50"
+  >
+    {analyzing ? (
+      <Loader2 size={18} className="animate-spin" />
+    ) : (
+      <RefreshCw size={18} />
+    )}
+
+    {analyzing ? "Analyzing..." : "Analyze Repository"}
+  </button>
+)}
         </header>
 
         {/* Error */}
@@ -273,11 +382,20 @@ function RepositoryDashboardContent() {
               const Icon = tool.icon;
 
               return (
+                // <button
+                //   key={tool.title}
+                //   onClick={() => router.push(tool.href)}
+                //   className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left transition hover:border-indigo-400/30 hover:bg-indigo-400/[0.04]"
+                // >
                 <button
-                  key={tool.title}
-                  onClick={() => router.push(tool.href)}
-                  className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left transition hover:border-indigo-400/30 hover:bg-indigo-400/[0.04]"
-                >
+  key={tool.title}
+  disabled={repoId === "demo" && (tool as any).demoDisabled}
+  onClick={() => {
+    if (repoId === "demo" && (tool as any).demoDisabled) return;
+    router.push(tool.href);
+  }}
+  className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left transition hover:border-indigo-400/30 hover:bg-indigo-400/[0.04] disabled:cursor-not-allowed disabled:opacity-40"
+>
                   <div className="mb-5 flex items-center justify-between">
                     <Icon size={24} className={tool.color} />
 
